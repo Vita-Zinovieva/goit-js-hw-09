@@ -1,22 +1,25 @@
-const startBtn = document.querySelector('button[data-start = "Start"]');
-const stoptBtn = document.querySelector('button[data-stop = "Stop"]');
-const body = document.querySelector('body');
+const startBtn = document.querySelector('[data-start]');
+const stopBtn = document.querySelector('[data-stop ]');
 
-
-//ставимо прослуховувач на кнопку старт
-startBtn.addEventListener(clic, () => {
-    let timerId = setInterval(() => {           //таймер виконання функції зміни кольору
-body.style.backgroundColor = getRandomHexColor;
-}, 1000);
-});
-
-//ставимо прослуховувач на кнопку стоп
-stoptBtn.addEventListener(click, () => {
-    clearInterval(timerId);      //метод зупинки функції   
-});
-
-
-//фугкція генерування випадкового коду
-function getRandomHexColor() {
+//функція генерування випадкового коду
+ function getRandomHexColor() {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   };
+
+let timerId = null;
+stopBtn.disabled = true;
+//ставимо прослуховувач на кнопку старт
+ startBtn.addEventListener('click', () => {
+    timerId = setInterval(() => {           //таймер виконання функції зміни кольору
+        document.body.style.backgroundColor = getRandomHexColor();
+    }, 1000); 
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+}); 
+
+//ставимо прослуховувач на кнопку стоп
+stopBtn.addEventListener('click', () => {
+    clearInterval(timerId);      //метод зупинки функції 
+    startBtn.disabled = false; 
+    stopBtn.disabled = true;
+ });  
