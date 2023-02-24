@@ -10,7 +10,8 @@ const hoursIndicator = document.querySelector('[data-hours]');
 const minutesIndicator = document.querySelector('[data-minutes]');
 const secondsIndicator = document.querySelector('[data-seconds]');
 
-startBtn.disable = true;
+
+startBtn.setAttribute("disabled","disabled");
 let currentDate = null;
 let selectedDate = null;
 let timerId = null;
@@ -22,16 +23,15 @@ const options = {
     defaultDate: new Date(),//Встановлює початкові вибрані дати.
     minuteIncrement: 1,   //Регулює крок для введення хвилин
     onClose(selectedDates) {
-      console.log(selectedDates[0]);
+      
       selectedDate = selectedDates[0].getTime();
       currentDate = new Date().getTime();
 //додаєм перевірку валідної дати
       if( selectedDate < currentDate) {
-        startBtn.disable = true;
         Notify.failure("Please choose a date in the future");
       } else {
-       startBtn.disable = false;
-                
+        startBtn.removeAttribute("disabled");
+                     
       }
     }
   };
@@ -44,11 +44,9 @@ startBtn.addEventListener('click', timerStart);
   function timerStart() {
     let timerId = setInterval(() => {
       currentDate = new Date().getTime();
-      //dateInput.disable = false;
-      startBtn.disabled = true; 
-      let count = selectedDate - currentDate;
-      console.log(count); 
-         
+      startBtn.setAttribute("disabled","disabled");
+       let count = selectedDate - currentDate;
+               
       if (count >= 0) {
         let timeData = convertMs(count);
           daysIndicator.textContent = timeData.days;
@@ -56,8 +54,7 @@ startBtn.addEventListener('click', timerStart);
           minutesIndicator.textContent = timeData.minutes;
           secondsIndicator.textContent = timeData.seconds;
       } 
-       //dateInput.disable = false;
-     }, 1000 );  
+       }, 1000 );  
                    
     };
  

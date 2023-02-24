@@ -1,7 +1,8 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const formRef = document.querySelector('.form');
-formRef.addEventListener('click', newCreate);
+const btnRef = document.querySelector('button');
+btnRef.addEventListener('click', newCreate);
  
 //функція ззавдання
 function createPromise(position, delay) {   
@@ -29,7 +30,7 @@ function newCreate(e) {
   let delay = Number(formRef.delay.value);
   let step = Number(formRef.step.value);
   
-  for (let i = 1; i <= amount; i += 1) {                  
+  for (let i = 1; i <= amount; i += 1) {                //і - позиція 1-го промісу(в стрічці amount),timeDelay містить позицію, затримку та крок, за умовою    
     let timeDelay = delay + step * i;
       createPromise(i, timeDelay)
       .then(({ position, delay }) => {
